@@ -16,6 +16,7 @@ public class Zengo {
 	private final String menuAssetsXPath = "//nav[@id='nav']//ul[contains(@class,'nav-menu')]//li[@id='menu-item-12609']";
 	private final String subMenuAssetsXPath = "//nav[@id='nav']//ul[contains(@class,'nav-menu')]//li[@id='menu-item-12609']//ul[contains(@class,'sub-menu')]//li[contains(@id,'menu-item-13963')]";
 	private final String logoXPath = "//header[@class='site-header']//div[@class='site-branding']//p[@class='site-title']//img[contains(@src,'zengologo')]";
+	private final String ethMenuItemXPath = "//a[contains(text, ETH)]";
 
 	public Zengo() {
 		System.setProperty("webdriver.chrome.driver", System.getenv("pathDriver"));
@@ -62,7 +63,7 @@ public class Zengo {
 		}
 
 		WebElement subAssetsMenu = webDriver.findElement(By.xpath(subMenuAssetsXPath));
-		WebElement EthereumMenuItem = subAssetsMenu.findElement(By.xpath("//a[contains(text, ETH)]"));
+		WebElement EthereumMenuItem = subAssetsMenu.findElement(By.xpath(ethMenuItemXPath));
 		if (EthereumMenuItem == null) {
 			return printErrors("Ethereum menu item not found");
 		}
@@ -102,17 +103,17 @@ public class Zengo {
 		return webDriver.getCurrentUrl().equals(url) ? true : false;
 	}
 
-	private boolean printErrors(String err) {
+	public boolean printErrors(String err) {
 		System.out.println("Error: " + err);
 		return false;
 	}
 
-	private boolean printSuccess(String msg) {
+	public boolean printSuccess(String msg) {
 		System.out.println("Success: " + msg);
 		return true;
 	}
 
-	private void closeWebSite() {
+	public void closeWebSite() {
 		webDriver.quit();
 	}
 
